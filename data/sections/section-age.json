@@ -1,0 +1,20 @@
+﻿{
+    "type": "arbitrary",
+    "name": "Данные об испытуемом",
+    "startSectionText": "Указать дополнительные данные",
+    "time": 0,
+    "instruction": "<p>Для завершения тестироания необходимо ввести данные о себе</p>",
+    "qa": [
+        {
+            "question": "Укажите свой возраст",
+            "numericAnswer": true,
+            "score":0,
+            "variable":"age",
+            "validator": {
+                "type": "int",
+                "top":  60,
+                "bottom": 13
+            }
+        }
+    ]
+}

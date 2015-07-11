@@ -1,0 +1,1 @@
+﻿Download qcustomplot (http://www.qcustomplot.com/) and place qcustomplot.h here
