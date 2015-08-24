@@ -67,7 +67,7 @@ QString Interpretation::getText(const int& score)
 
             QList<QMap<QString, QVariant> >::ConstIterator iMap = m_score.constBegin();
             while (iMap != m_score.constEnd()) {
-                if ((*iMap)["name"].toString() == name && (*iMap)["from"].toInt() <= score && score <= (*iMap)["to"].toInt()) {
+                if ((*iMap)["name"].toString() == name && (*iMap)["from"].toInt() <= convertedScore && convertedScore <= (*iMap)["to"].toInt()) {
                     description += (*iMap)["description"].toString();
                 }
                 iMap++;

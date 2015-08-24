@@ -324,7 +324,6 @@ void MainWindow::onManualProcessing(Section& section, const QStringList& section
         dictionaryDialog.onDialogAccepted();
     }
 
-    //FIXME: перепроверить, что работает!
     QList<QVariant> answersToProcess;
     QMap<QString, int>::ConstIterator iCheckedAnswers = dictionaryDialog.checkedAnswers().constBegin();
     while (iCheckedAnswers != dictionaryDialog.checkedAnswers().constEnd()) {
