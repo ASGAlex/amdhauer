@@ -372,7 +372,8 @@ bool Test::saveResults(const QString fileName)
 
     QJsonObject answers;
     QMap<QString, QStringList>::ConstIterator iAnswer = m_sectionsAnswers.constBegin();
-    while (iAnswer != m_sectionsAnswers.constEnd()) {
+    QList<Section>::ConstIterator iSection = m_sections.constBegin();
+    while (iAnswer != m_sectionsAnswers.constEnd() && iSection != m_sections.constEnd()) {
 
         QJsonArray sectionAnswers;
         QStringList::ConstIterator iSectAnswer = (*iAnswer).constBegin();
@@ -381,8 +382,10 @@ bool Test::saveResults(const QString fileName)
             sectionAnswers.push_back(QJsonValue(*iSectAnswer));
             iSectAnswer++;
         }
-        answers.insert(iAnswer.key(), sectionAnswers);
+        answers.insert((*iSection).machineName(), sectionAnswers);
+
         iAnswer++;
+        iSection++;
     }
     root.insert("answers", answers);
 
