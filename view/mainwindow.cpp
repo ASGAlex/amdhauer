@@ -88,6 +88,7 @@ void MainWindow::updateInterface(MainWindow::buttonsVariants mode)
         this->answerWidgets.append(finish);
         this->ui->buttonsLayout->addWidget(finish);
         this->ui->textBrowser->setHtml("Все задания методики вы выполнили. Большое спасибо!");
+        this->ui->actionSave->setEnabled(true);
 
     } break;
 
@@ -352,6 +353,16 @@ void MainWindow::on_actionZoomOut_triggered()
     }
 }
 
+void MainWindow::on_actionSave_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                    QDir::currentPath()+"/result.json",
+                                                    tr("Json (*.json)"));
+    if(fileName.isNull()) return;
+
+    this->test.saveResults(fileName);
+}
+
 void MainWindow::onPlotReady(QCustomPlot* plot)
 {
     if (!m_plot->isVisible()) {
@@ -398,14 +409,4 @@ void MainWindow::addHotkeys()
         }
         i++;
     }
-}
-
-void MainWindow::on_actionSave_triggered()
-{
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                    QDir::currentPath()+"/result.json",
-                                                    tr("Json (*.json)"));
-    if(fileName.isNull()) return;
-
-    this->test.saveResults(fileName);
 }
