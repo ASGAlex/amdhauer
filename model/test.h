@@ -93,6 +93,7 @@ protected:
 
 public slots:
     void preparePlotData();
+    bool saveResults(const QString fileName);
 
 protected slots:
     void onTimerTick();

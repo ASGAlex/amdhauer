@@ -314,13 +314,13 @@ void Test::preparePlotData()
             int score = section.interpretation().convertedScores()[name];
             dataY << double(score);
 
-            QCPItemText *pointLabel = new QCPItemText(plot);
+            QCPItemText* pointLabel = new QCPItemText(plot);
             QString pointText;
             pointText.setNum(score);
             pointLabel->setText(pointText);
             pointLabel->position->setType(QCPItemPosition::ptPlotCoords);
             pointLabel->position->setCoords(double(index), double(score));
-            pointLabel->setPadding(QMargins(-1,0,0,25));
+            pointLabel->setPadding(QMargins(-1, 0, 0, 25));
             plot->addItem(pointLabel);
 
             index++;
@@ -356,6 +356,48 @@ void Test::preparePlotData()
     plot->yAxis->setScaleType(QCPAxis::stLinear);
 
     emit plotReady(plot);
+}
+
+bool Test::saveResults(const QString fileName)
+{
+    QJsonObject root;
+
+    QJsonObject variables;
+    QMap<QString, QString>::ConstIterator iVar = m_variables.constBegin();
+    while (iVar != m_variables.constEnd()) {
+        variables.insert(iVar.key(), iVar.value());
+        iVar++;
+    }
+    root.insert("variables", variables);
+
+    QJsonObject answers;
+    QMap<QString, QStringList>::ConstIterator iAnswer = m_sectionsAnswers.constBegin();
+    while (iAnswer != m_sectionsAnswers.constEnd()) {
+
+        QJsonArray sectionAnswers;
+        QStringList::ConstIterator iSectAnswer = (*iAnswer).constBegin();
+
+        while (iSectAnswer != (*iAnswer).constEnd()) {
+            sectionAnswers.push_back(QJsonValue(*iSectAnswer));
+            iSectAnswer++;
+        }
+        answers.insert(iAnswer.key(), sectionAnswers);
+        iAnswer++;
+    }
+    root.insert("answers", answers);
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly)) {
+        return false;
+    }
+
+    QJsonDocument document(root);
+    QString json(document.toJson());
+
+    int result = file.write(json.toUtf8());
+    file.close();
+
+    return (result != -1);
 }
 
 void Test::onTimerTick()
