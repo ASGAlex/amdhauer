@@ -78,6 +78,7 @@ private slots:
     void on_actionZoomIn_triggered();
     void on_actionZoomOut_triggered();
     void onPlotReady(QCustomPlot * plot);
+    void on_actionSave_triggered();
 };
 
 #endif // MAINWINDOW_H

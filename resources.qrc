@@ -1,3 +1,7 @@
 <RCC>
-    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>res/icons/document-save-as.png</file>
+        <file>res/icons/zoom-in.png</file>
+        <file>res/icons/zoom-out.png</file>
+    </qresource>
 </RCC>

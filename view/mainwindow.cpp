@@ -388,8 +388,8 @@ void MainWindow::addHotkeys()
     QList<QWidget*>::Iterator i = this->answerWidgets.begin();
     int index = 1;
     while (i != this->answerWidgets.end()) {
-        QPushButton *pb = dynamic_cast<QPushButton*>((*i));
-        if(pb){
+        QPushButton* pb = dynamic_cast<QPushButton*>((*i));
+        if (pb) {
             QString sKey;
             sKey.setNum(index);
             QKeySequence ks(sKey);
@@ -398,4 +398,14 @@ void MainWindow::addHotkeys()
         }
         i++;
     }
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                    QDir::currentPath()+"/result.json",
+                                                    tr("Json (*.json)"));
+    if(fileName.isNull()) return;
+
+    this->test.saveResults(fileName);
 }
