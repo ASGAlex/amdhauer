@@ -416,6 +416,7 @@ bool Test::loadResults(const QString fileName)
 
     m_variables.empty();
     m_sectionsAnswers.empty();
+    m_timer.stop();
 
     QJsonObject variables = JsonHelper::readObject("variables", root);
     QJsonObject::ConstIterator iVar = variables.constBegin();
