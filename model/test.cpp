@@ -403,6 +403,38 @@ bool Test::saveResults(const QString fileName)
     return (result != -1);
 }
 
+bool Test::loadResults(const QString fileName)
+{
+    QJsonObject root;
+    try {
+        root = JsonHelper::readFile(fileName);
+    }
+    catch (QString error) {
+        qCritical() << error;
+        return false;
+    }
+
+    m_variables.empty();
+    m_sectionsAnswers.empty();
+
+    QJsonObject variables = JsonHelper::readObject("variables", root);
+    QJsonObject::ConstIterator iVar = variables.constBegin();
+    while (iVar != variables.constEnd()) {
+        m_variables[iVar.key()] = iVar.value().toString();
+        iVar++;
+    }
+
+    QJsonObject sectionAnswers = JsonHelper::readObject("answers", root);
+    QList<Section>::ConstIterator iSection = m_sections.constBegin();
+    while (iSection != m_sections.constEnd()) {
+        QStringList sectionAnswersList = JsonHelper::readStringArray((*iSection).machineName(), sectionAnswers);
+        m_sectionsAnswers[(*iSection).name()] = sectionAnswersList;
+        iSection++;
+    }
+
+    return true;
+}
+
 void Test::onTimerTick()
 {
     int maxTickTime = currentSection().time() * 1000;

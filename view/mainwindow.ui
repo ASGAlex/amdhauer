@@ -64,6 +64,7 @@ p, li { white-space: pre-wrap; }
    <addaction name="actionZoomOut"/>
    <addaction name="actionZoomIn"/>
    <addaction name="separator"/>
+   <addaction name="actionLoad"/>
    <addaction name="actionSave"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -116,6 +117,18 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/res/icons/document-open.png</normaloff>:/res/icons/document-open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Load</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
  </widget>

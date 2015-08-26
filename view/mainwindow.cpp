@@ -353,12 +353,27 @@ void MainWindow::on_actionZoomOut_triggered()
     }
 }
 
+void MainWindow::on_actionLoad_triggered()
+{
+
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                    QDir::currentPath() + "/result.json",
+                                                    tr("Json (*.json)"));
+    if (fileName.isNull())
+        return;
+
+    if(this->test.loadResults(fileName)){
+        onFinishClick();
+    }
+}
+
 void MainWindow::on_actionSave_triggered()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                                    QDir::currentPath()+"/result.json",
+                                                    QDir::currentPath() + "/result.json",
                                                     tr("Json (*.json)"));
-    if(fileName.isNull()) return;
+    if (fileName.isNull())
+        return;
 
     this->test.saveResults(fileName);
 }

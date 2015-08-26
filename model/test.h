@@ -94,6 +94,7 @@ protected:
 public slots:
     void preparePlotData();
     bool saveResults(const QString fileName);
+    bool loadResults(const QString fileName);
 
 protected slots:
     void onTimerTick();
