@@ -4,5 +4,6 @@
         <file>res/icons/zoom-in.png</file>
         <file>res/icons/zoom-out.png</file>
         <file>res/icons/document-open.png</file>
+        <file>res/icons/system-run.png</file>
     </qresource>
 </RCC>

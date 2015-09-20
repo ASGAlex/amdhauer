@@ -111,6 +111,7 @@ void Interpretation::load(const QJsonObject& root)
     m_graphNames = JsonHelper::readStringArray("names", objGraph);
     m_join = JsonHelper::readBoolValue("join", objGraph);
 
+    m_score.empty();
     QList<QJsonObject> array = JsonHelper::readObjectArray("score", root);
     foreach (QJsonObject obj, array) {
         QMap<QString, QVariant> score;

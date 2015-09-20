@@ -249,6 +249,7 @@ bool Test::loadConversionTable()
 bool Test::loadSections(const QStringList& fileNames, const QString& sectionsPath)
 {
     bool success = true;
+    m_sections.clear();
     foreach (QString name, fileNames) {
         QString filename = m_testPath + "/" + sectionsPath + "/" + name + ".json";
 

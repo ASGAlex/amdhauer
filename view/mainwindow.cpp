@@ -15,18 +15,8 @@ MainWindow::MainWindow(QWidget* parent)
         }
     }
 
-    this->test.load("data/test.json");
-    if (this->test.useTimer()) {
-        connect(&this->test, SIGNAL(timerTick(int)), SLOT(onTimerTick(int)));
-    }
-
     connect(&this->test, SIGNAL(manualProcesssing(Section&, const QStringList&)), this, SLOT(onManualProcessing(Section&, const QStringList&)));
     connect(&this->test, SIGNAL(sectionChange()), SLOT(nextSectionDisplay()));
-
-    this->setWindowTitle(this->test.name());
-    this->setMinimumSize(this->test.preferredWindowSize());
-
-    this->updateInterface(MainWindow::START);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -362,7 +352,7 @@ void MainWindow::on_actionLoad_triggered()
     if (fileName.isNull())
         return;
 
-    if(this->test.loadResults(fileName)){
+    if (this->test.loadResults(fileName)) {
         onFinishClick();
     }
 }
@@ -376,6 +366,18 @@ void MainWindow::on_actionSave_triggered()
         return;
 
     this->test.saveResults(fileName);
+}
+
+void MainWindow::on_actionRunTest_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                    QDir::currentPath() + "/data/test.json",
+                                                    tr("Json (*.json)"));
+    if (fileName.isNull())
+        return;
+
+    this->test.load(fileName);
+    this->testAfterLoad();
 }
 
 void MainWindow::onPlotReady(QCustomPlot* plot)
@@ -424,4 +426,18 @@ void MainWindow::addHotkeys()
         }
         i++;
     }
+}
+
+void MainWindow::testAfterLoad()
+{
+    if (this->test.useTimer()) {
+        m_timerConnection = connect(&this->test, SIGNAL(timerTick(int)), SLOT(onTimerTick(int)));
+    } else {
+        disconnect(m_timerConnection);
+    }
+
+    this->setWindowTitle(this->test.name());
+    this->setMinimumSize(this->test.preferredWindowSize());
+
+    this->updateInterface(MainWindow::START);
 }

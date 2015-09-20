@@ -14,6 +14,7 @@
 #include <QFont>
 #include <QSettings>
 #include <QKeySequence>
+#include <QMetaObject>
 #include <typeinfo>
 
 #include "../model/section.h"
@@ -48,6 +49,7 @@ protected:
     int msecGone;
 
     Test test;
+    QMetaObject::Connection m_timerConnection;
 
     QList<QWidget*> answerWidgets;
     QSettings settings;
@@ -64,6 +66,7 @@ private:
     void resizeWidgetText(QWidget *widget);
     void normalizeWidgets(QSize &maxSize);
     void addHotkeys();
+    void testAfterLoad();
 
 public slots:
     void onManualProcessing(Section &section, const QStringList &sectionAnswers);
@@ -79,6 +82,7 @@ private slots:
     void on_actionZoomOut_triggered();
     void on_actionSave_triggered();
     void on_actionLoad_triggered();
+    void on_actionRunTest_triggered();
     void onPlotReady(QCustomPlot * plot);
 };
 
