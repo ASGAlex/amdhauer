@@ -10,6 +10,7 @@
 #include <QDir>
 #include <QSize>
 #include <QVector>
+#include <QTemporaryDir>
 #include <math.h>
 
 #include "section.h"
@@ -19,6 +20,8 @@
 #include "conversiontable.h"
 #include "../helper/jsonhelper.h"
 #include "../lib/qcustomplot.h"
+#include "../../quazip-0.7.1/quazip/quazip.h"
+#include <../../quazip-0.7.1/quazip/JlCompress.h>
 
 class Test : public QObject
 {
@@ -87,6 +90,11 @@ protected:
     Interpretation m_interpretation;
 
     QCustomPlot *plot;
+
+    QTemporaryDir *m_temp;
+
+    bool loadJSON(QString fileName);
+    bool loadZIP(QString fileName);
 
     bool loadSections(const QStringList &fileNames, const QString &sectionsPath);
     bool conversionMatchConditions(const QJsonObject &conversion) const;

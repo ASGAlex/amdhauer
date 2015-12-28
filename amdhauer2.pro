@@ -67,3 +67,4 @@ CONFIG(debug, release|debug) {
   else: QCPLIB = qcustomplot
 }
 LIBS += -L./ -l$$QCPLIB
+LIBS += ../quazip-0.7.1/quazip/release/libquazip.a

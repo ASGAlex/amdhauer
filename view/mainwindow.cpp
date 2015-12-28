@@ -372,7 +372,7 @@ void MainWindow::on_actionRunTest_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     QDir::currentPath() + "/data/test.json",
-                                                    tr("Json (*.json)"));
+                                                    tr("Test files (*.json *.zip)"));
     if (fileName.isNull())
         return;
 

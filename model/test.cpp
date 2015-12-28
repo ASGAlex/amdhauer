@@ -3,6 +3,7 @@
 Test::Test()
 {
     m_manualProcessedScoresTotal = 0;
+    m_temp = 0;
     plot = 0;
 }
 
@@ -11,6 +12,40 @@ Test::~Test()
 }
 
 bool Test::load(QString fileName)
+{
+    QFileInfo info(fileName);
+    if(info.suffix() == "json"){
+        return loadJSON(fileName);
+
+    } else if(info.suffix() == "zip"){
+        return loadZIP(fileName);
+    } else {
+        throw "Invalid file format";
+    }
+
+}
+
+bool Test::loadZIP(QString fileName)
+{
+    if(m_temp != 0){
+        delete m_temp;
+    }
+
+    m_temp = new QTemporaryDir("psytest-XXXXXX");
+    if(m_temp->isValid()){
+        QStringList extracted = JlCompress::extractDir(fileName,m_temp->path());
+        if(extracted.isEmpty()) return false;
+
+        QFileInfo info(m_temp->path()+"/test.json");
+        if(!info.exists()) return false;
+
+        loadJSON(info.absoluteFilePath());
+    }
+
+    return false;
+}
+
+bool Test::loadJSON(QString fileName)
 {
     QJsonObject root;
     try {
